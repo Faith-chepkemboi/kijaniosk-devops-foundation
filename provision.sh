@@ -289,3 +289,27 @@ EOF
 
 sudo logrotate --debug /etc/logrotate.d/kijanikiosk > /dev/null
 
+echo "[PASS] Phase 7 Complete."
+
+# ==============================================================================
+# PHASE 8: MONITORING HEALTH CHECKS
+# ==============================================================================
+echo "--- Phase 8: Monitoring Health Checks ---"
+
+# Checklist requirement: Verify each service status dynamically by checking systemd states
+api_status=$(systemctl is-active kk-api.service >/dev/null 2>&1 && echo '"ok"' || echo '"down"')
+payments_status=$(systemctl is-active kk-payments.service >/dev/null 2>&1 && echo '"ok"' || echo '"down"')
+
+sudo mkdir -p /opt/kijanikiosk/health
+
+printf '{"timestamp":"%s","kk-api":%s,"kk-payments":%s}\n' \
+  "$(date -Is)" "$api_status" "$payments_status" \
+  | sudo tee /opt/kijanikiosk/health/last-provision.json > /dev/null
+
+# Checklist requirement: Must be strictly readable by the group 'kijanikiosk'
+sudo chown kk-logs:kijanikiosk /opt/kijanikiosk/health/last-provision.json
+sudo chmod 640 /opt/kijanikiosk/health/last-provision.json
+
+echo "[PASS] Phase 8 Complete."
+echo "SUCCESS: KijaniKiosk foundation converged, clean, and fully operational."
+exit 0

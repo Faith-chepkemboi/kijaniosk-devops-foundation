@@ -2,9 +2,9 @@
 --- Phase 1: Package Management ---
 Hit:1 https://download.docker.com/linux/ubuntu resolute InRelease
 Hit:2 http://security.ubuntu.com/ubuntu resolute-security InRelease
-Hit:3 https://download.virtualbox.org/virtualbox/debian resolute InRelease
-Hit:4 https://packages.microsoft.com/repos/code stable InRelease
-Hit:5 https://dl.google.com/linux/chrome-stable/deb stable InRelease
+Hit:3 https://packages.microsoft.com/repos/code stable InRelease
+Hit:4 https://dl.google.com/linux/chrome-stable/deb stable InRelease
+Hit:5 https://download.virtualbox.org/virtualbox/debian resolute InRelease
 Ign:6 http://ke.archive.ubuntu.com/ubuntu resolute InRelease
 Ign:7 http://ke.archive.ubuntu.com/ubuntu resolute-updates InRelease
 Ign:8 http://ke.archive.ubuntu.com/ubuntu resolute-backports InRelease
@@ -58,12 +58,12 @@ usermod: no changes
 [PASS] Phase 4 Complete.
 --- Phase 5: Firewall Hardening ---
 [CLEAN STATE] Firewall parameters are currently clear.
-Resetting all rules to installed defaults. Proceed with operation (y|n)? Backing up 'user.rules' to '/etc/ufw/user.rules.20260927_215314'
-Backing up 'before.rules' to '/etc/ufw/before.rules.20260927_215314'
-Backing up 'after.rules' to '/etc/ufw/after.rules.20260927_215314'
-Backing up 'user6.rules' to '/etc/ufw/user6.rules.20260927_215314'
-Backing up 'before6.rules' to '/etc/ufw/before6.rules.20260927_215314'
-Backing up 'after6.rules' to '/etc/ufw/after6.rules.20260927_215314'
+Resetting all rules to installed defaults. Proceed with operation (y|n)? Backing up 'user.rules' to '/etc/ufw/user.rules.20260927_222832'
+Backing up 'before.rules' to '/etc/ufw/before.rules.20260927_222832'
+Backing up 'after.rules' to '/etc/ufw/after.rules.20260927_222832'
+Backing up 'user6.rules' to '/etc/ufw/user6.rules.20260927_222832'
+Backing up 'before6.rules' to '/etc/ufw/before6.rules.20260927_222832'
+Backing up 'after6.rules' to '/etc/ufw/after6.rules.20260927_222832'
 
 Default incoming policy changed to 'deny'
 (be sure to update your rules accordingly)
@@ -122,13 +122,17 @@ Creating new state
 Creating new state
 Creating new state
 Creating new state
+Creating new state
 
 Handling 1 logs
 
 rotating pattern: /opt/kijanikiosk/shared/logs/*.log after 1 days empty log files are not rotated, (7 rotations), old logs are removed
-switching euid from 0 to 1003 and egid from 0 to 1005 (pid 106281)
+switching euid from 0 to 1003 and egid from 0 to 1005 (pid 110880)
 considering log /opt/kijanikiosk/shared/logs/*.log
   log /opt/kijanikiosk/shared/logs/*.log does not exist -- skipping
-Creating new state
 not running postrotate script, since no logs were rotated
-switching euid from 1003 to 0 and egid from 1005 to 0 (pid 106281)
+switching euid from 1003 to 0 and egid from 1005 to 0 (pid 110880)
+[PASS] Phase 7 Complete.
+--- Phase 8: Monitoring Health Checks ---
+[PASS] Phase 8 Complete.
+SUCCESS: KijaniKiosk foundation converged, clean, and fully operational.
