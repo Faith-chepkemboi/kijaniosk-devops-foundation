@@ -1,0 +1,2 @@
+=== Running Logrotate Access Isolation Model Tests ===
+Access Isolation Check: FAIL

@@ -1,0 +1,134 @@
+=== Beginning KijaniKiosk Production Server Provisioning ===
+--- Phase 1: Package Management ---
+Hit:1 https://download.docker.com/linux/ubuntu resolute InRelease
+Hit:2 http://security.ubuntu.com/ubuntu resolute-security InRelease
+Hit:3 https://download.virtualbox.org/virtualbox/debian resolute InRelease
+Hit:4 https://packages.microsoft.com/repos/code stable InRelease
+Hit:5 https://dl.google.com/linux/chrome-stable/deb stable InRelease
+Ign:6 http://ke.archive.ubuntu.com/ubuntu resolute InRelease
+Ign:7 http://ke.archive.ubuntu.com/ubuntu resolute-updates InRelease
+Ign:8 http://ke.archive.ubuntu.com/ubuntu resolute-backports InRelease
+Ign:8 http://ke.archive.ubuntu.com/ubuntu resolute-backports InRelease
+Ign:7 http://ke.archive.ubuntu.com/ubuntu resolute-updates InRelease
+Ign:6 http://ke.archive.ubuntu.com/ubuntu resolute InRelease
+Ign:6 http://ke.archive.ubuntu.com/ubuntu resolute InRelease
+Ign:7 http://ke.archive.ubuntu.com/ubuntu resolute-updates InRelease
+Ign:8 http://ke.archive.ubuntu.com/ubuntu resolute-backports InRelease
+Err:8 http://ke.archive.ubuntu.com/ubuntu resolute-backports InRelease
+  Cannot initiate the connection to ke.archive.ubuntu.com:80 (2c0f:fe40:8001:10::1). - connect (101: Network is unreachable)
+Err:7 http://ke.archive.ubuntu.com/ubuntu resolute-updates InRelease
+  Cannot initiate the connection to ke.archive.ubuntu.com:80 (2c0f:fe40:8001:10::1). - connect (101: Network is unreachable)
+Err:6 http://ke.archive.ubuntu.com/ubuntu resolute InRelease
+  Cannot initiate the connection to ke.archive.ubuntu.com:80 (2c0f:fe40:8001:10::1). - connect (101: Network is unreachable) Could not connect to ke.archive.ubuntu.com:80 (197.155.77.1), connection timed out
+  Cannot initiate the connection to ke.archive.ubuntu.com:80 (2c0f:fe40:8001:10::1). - connect (101: Network is unreachable)
+Reading package lists...
+W: Failed to fetch http://ke.archive.ubuntu.com/ubuntu/dists/resolute/InRelease  Cannot initiate the connection to ke.archive.ubuntu.com:80 (2c0f:fe40:8001:10::1). - connect (101: Network is unreachable)
+W: Failed to fetch http://ke.archive.ubuntu.com/ubuntu/dists/resolute-updates/InRelease  Cannot initiate the connection to ke.archive.ubuntu.com:80 (2c0f:fe40:8001:10::1). - connect (101: Network is unreachable)
+W: Failed to fetch http://ke.archive.ubuntu.com/ubuntu/dists/resolute-backports/InRelease  Cannot initiate the connection to ke.archive.ubuntu.com:80 (2c0f:fe40:8001:10::1). - connect (101: Network is unreachable)
+W: Some index files failed to download. They have been ignored, or old ones used instead.
+[DIRTY STATE DETECTED] 'curl' package hold is active. Clearing override.
+Canceled hold on curl.
+Reading package lists...
+Building dependency tree...
+Reading state information...
+curl is already the newest version (8.18.0-1ubuntu2.7).
+ufw is already the newest version (0.36.2-9build1).
+logrotate is already the newest version (3.22.0-1build1).
+acl is already the newest version (2.3.2-2).
+Solving dependencies...
+0 upgraded, 0 newly installed, 0 to remove and 3 not upgraded.
+curl set on hold.
+[PASS] Phase 1 Complete.
+--- Phase 2: User and Group Convergence ---
+[INFO] Group 'kijanikiosk' already exists.
+[DIRTY STATE DETECTED] User 'kk-api' already exists with shell '/usr/sbin/nologin'.
+usermod: no changes
+[CONVERGED] Forcefully updated 'kk-api' to secure non-interactive system spec.
+[DIRTY STATE DETECTED] User 'kk-payments' already exists with shell '/usr/sbin/nologin'.
+usermod: no changes
+[CONVERGED] Forcefully updated 'kk-payments' to secure non-interactive system spec.
+[DIRTY STATE DETECTED] User 'kk-logs' already exists with shell '/usr/sbin/nologin'.
+usermod: no changes
+[CONVERGED] Forcefully updated 'kk-logs' to secure non-interactive system spec.
+[PASS] Phase 2 Complete.
+--- Phase 3: Directory Structure and Permissions ---
+[CLEAN STATE] Configuration folder directory permissions look correct.
+[PASS] Phase 3 Complete.
+--- Phase 4: Systemd Service Hardening ---
+[PASS] Phase 4 Complete.
+--- Phase 5: Firewall Hardening ---
+[CLEAN STATE] Firewall parameters are currently clear.
+Resetting all rules to installed defaults. Proceed with operation (y|n)? Backing up 'user.rules' to '/etc/ufw/user.rules.20260927_215314'
+Backing up 'before.rules' to '/etc/ufw/before.rules.20260927_215314'
+Backing up 'after.rules' to '/etc/ufw/after.rules.20260927_215314'
+Backing up 'user6.rules' to '/etc/ufw/user6.rules.20260927_215314'
+Backing up 'before6.rules' to '/etc/ufw/before6.rules.20260927_215314'
+Backing up 'after6.rules' to '/etc/ufw/after6.rules.20260927_215314'
+
+Default incoming policy changed to 'deny'
+(be sure to update your rules accordingly)
+Default outgoing policy changed to 'allow'
+(be sure to update your rules accordingly)
+Rules updated
+Rules updated (v6)
+Rules updated
+Rules updated (v6)
+Rules updated
+Rules updated (v6)
+Firewall is active and enabled on system startup
+[PASS] Phase 5 Complete.
+--- Phase 6: Firewall Verification Assertions ---
+[PASS] Firewall validation assertion passed for rule pattern: 22/tcp.*ALLOW IN
+[PASS] Firewall validation assertion passed for rule pattern: 3000/tcp.*ALLOW IN
+[PASS] Firewall validation assertion passed for rule pattern: 3001/tcp.*ALLOW IN
+[PASS] Phase 6 Complete.
+--- Phase 7: Journal Persistence and Log Rotation ---
+warning: logrotate in debug mode does nothing except printing debug messages!  Consider using verbose mode (-v) instead if this is not what you want.
+
+reading config file /etc/logrotate.d/kijanikiosk
+Reading state from file: /var/lib/logrotate/status
+Allocating hash table for state file, size 64 entries
+Creating new state
+Creating new state
+Creating new state
+Creating new state
+Creating new state
+Creating new state
+Creating new state
+Creating new state
+Creating new state
+Creating new state
+Creating new state
+Creating new state
+Creating new state
+Creating new state
+Creating new state
+Creating new state
+Creating new state
+Creating new state
+Creating new state
+Creating new state
+Creating new state
+Creating new state
+Creating new state
+Creating new state
+Creating new state
+Creating new state
+Creating new state
+Creating new state
+Creating new state
+Creating new state
+Creating new state
+Creating new state
+Creating new state
+Creating new state
+
+Handling 1 logs
+
+rotating pattern: /opt/kijanikiosk/shared/logs/*.log after 1 days empty log files are not rotated, (7 rotations), old logs are removed
+switching euid from 0 to 1003 and egid from 0 to 1005 (pid 106281)
+considering log /opt/kijanikiosk/shared/logs/*.log
+  log /opt/kijanikiosk/shared/logs/*.log does not exist -- skipping
+Creating new state
+not running postrotate script, since no logs were rotated
+switching euid from 1003 to 0 and egid from 1005 to 0 (pid 106281)
