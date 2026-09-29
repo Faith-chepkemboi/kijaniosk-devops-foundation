@@ -1,0 +1,34 @@
+kk-api:x:1001:1002::/home/kk-api:/bin/sh
+kk-payments:x:1002:1003::/home/kk-payments:/bin/sh
+kk-logs:x:1003:1004::/home/kk-logs:/bin/sh
+kijanikiosk:x:1005:
+total 16
+drwxr-xr-x 4 root root 4096 Sep 27 20:11 .
+drwxr-xr-x 5 root root 4096 Sep 27 20:11 ..
+drwxrwxrwx 2 root root 4096 Sep 27 20:11 config
+drwxr-xr-x 3 root root 4096 Sep 27 20:11 shared
+# file: opt/kijanikiosk/shared/logs/
+# owner: root
+# group: root
+user::rwx
+group::rwx
+other::rwx
+
+# file: opt/kijanikiosk/config/
+# owner: root
+# group: root
+user::rwx
+group::rwx
+other::rwx
+
+Status: active
+
+     To                         Action      From
+     --                         ------      ----
+[ 1] 22/tcp                     ALLOW IN    Anywhere                  
+[ 2] 3001                       DENY IN     Anywhere                  
+[ 3] 22/tcp (v6)                ALLOW IN    Anywhere (v6)             
+[ 4] 3001 (v6)                  DENY IN     Anywhere (v6)             
+
+curl
+Archived and active journals take up 130.9M in the file system.
