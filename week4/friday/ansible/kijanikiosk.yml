@@ -114,6 +114,82 @@
         state: started
       tags: [systemd]
 
+
+    # Phase 5: firewall (SSH is allowed before the firewall is switched on)
+    - name: Allow SSH
+      community.general.ufw:
+        rule: allow
+        port: "{{ ssh_port }}"
+        proto: tcp
+        comment: "SSH administration access"
+      tags: [firewall]
+
+    - name: Allow application ports
+      community.general.ufw:
+        rule: allow
+        port: "{{ item.port }}"
+        proto: tcp
+        comment: "{{ item.comment }}"
+      loop: "{{ firewall_ports }}"
+      tags: [firewall]
+
+    - name: Deny incoming traffic by default
+      community.general.ufw:
+        default: deny
+        direction: incoming
+      tags: [firewall]
+
+    - name: Allow outgoing traffic by default
+      community.general.ufw:
+        default: allow
+        direction: outgoing
+      tags: [firewall]
+
+    - name: Enable the firewall
+      community.general.ufw:
+        state: enabled
+      tags: [firewall]
+
+    # Phase 6: journal persistence
+    - name: Create the persistent journal directory
+      ansible.builtin.file:
+        path: /var/log/journal
+        state: directory
+        owner: root
+        group: systemd-journal
+        mode: "2755"
+      tags: [journal]
+
+    - name: Create the journald drop-in directory
+      ansible.builtin.file:
+        path: /etc/systemd/journald.conf.d
+        state: directory
+        owner: root
+        group: root
+        mode: "0755"
+      tags: [journal]
+
+    - name: Write the journald settings
+      ansible.builtin.template:
+        src: journald.conf.j2
+        dest: /etc/systemd/journald.conf.d/99-kijanikiosk.conf
+        owner: root
+        group: root
+        mode: "0644"
+      notify: Restart journald
+      tags: [journal]
+
+    # Phase 7: log rotation
+    - name: Write the logrotate policy
+      ansible.builtin.template:
+        src: logrotate.j2
+        dest: /etc/logrotate.d/kijanikiosk
+        owner: root
+        group: root
+        mode: "0644"
+        validate: "logrotate --debug %s"
+      tags: [logrotate]
+
   handlers:
     - name: Reload systemd
       ansible.builtin.systemd:
@@ -122,4 +198,9 @@
     - name: Restart service
       ansible.builtin.systemd:
         name: "{{ service_name }}"
+        state: restarted
+
+    - name: Restart journald
+      ansible.builtin.systemd:
+        name: systemd-journald
         state: restarted
