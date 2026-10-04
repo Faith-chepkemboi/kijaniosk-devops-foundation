@@ -1,0 +1,11 @@
+service_name: kk-payments
+service_user: kk-payments
+service_description: "KijaniKiosk Production Payments Processing Engine"
+firewall_ports:
+  - { port: 3001, comment: "KijaniKiosk payments transactional endpoint" }
+extra_hardening:
+  - "RestrictAddressFamilies=AF_INET AF_INET6 AF_UNIX"
+service_env_file: /opt/kijanikiosk/config/payments-api.env
+service_env:
+  PAYMENTS_PORT: 3001
+  LOG_LEVEL: info
