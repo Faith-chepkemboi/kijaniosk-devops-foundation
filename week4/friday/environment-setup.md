@@ -14,5 +14,5 @@ Path used: **Multipass primary path** with a local MinIO remote backend (endpoin
 ## Notes
 - State backend: MinIO bucket `kijanikiosk-tfstate`, S3-compatible, run locally as a native binary.
 - MinIO was installed from source with `go install`, so it reports a development build string instead of a release number.
-- The S3 backend on MinIO has no native state locking. This is documented as a known limitation in hardening-decisions.md.
+- State locking is enabled with the S3 lock file option (use_lockfile). Tested: a second plan was refused with a 412 PreconditionFailed while a destroy waited for confirmation.
 - Run the pipeline with `./pipeline.sh` (defaults to the Multipass path).
