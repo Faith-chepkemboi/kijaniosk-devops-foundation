@@ -1,0 +1,136 @@
+[0m[1mmodule.servers["payments"].local_file.cloud_init: Refreshing state... [id=f0950df8c9904fc634d8cafb2ca1153600d77e1a][0m
+[0m[1mmodule.servers["logs"].local_file.cloud_init: Refreshing state... [id=f0950df8c9904fc634d8cafb2ca1153600d77e1a][0m
+[0m[1mmodule.servers["api"].local_file.cloud_init: Refreshing state... [id=f0950df8c9904fc634d8cafb2ca1153600d77e1a][0m
+[0m[1mmodule.servers["payments"].multipass_instance.this: Refreshing state... [name=kijanikiosk-payments][0m
+[0m[1mmodule.servers["logs"].multipass_instance.this: Refreshing state... [name=kijanikiosk-logs][0m
+[0m[1mmodule.servers["api"].multipass_instance.this: Refreshing state... [name=kijanikiosk-api][0m
+[0m[1mmodule.servers["api"].data.multipass_instance.this: Reading...[0m[0m
+[0m[1mmodule.servers["payments"].data.multipass_instance.this: Reading...[0m[0m
+[0m[1mmodule.servers["logs"].data.multipass_instance.this: Reading...[0m[0m
+[0m[1mmodule.servers["api"].data.multipass_instance.this: Read complete after 0s [name=kijanikiosk-api][0m
+[0m[1mmodule.servers["payments"].data.multipass_instance.this: Read complete after 0s [name=kijanikiosk-payments][0m
+[0m[1mmodule.servers["logs"].data.multipass_instance.this: Read complete after 0s [name=kijanikiosk-logs][0m
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  [31m-[0m destroy[0m
+
+Terraform will perform the following actions:
+
+[1m  # module.servers["api"].local_file.cloud_init[0m will be [1m[31mdestroyed[0m
+[0m  [31m-[0m[0m resource "local_file" "cloud_init" {
+      [31m-[0m[0m content              = <<-EOT
+            #cloud-config
+            ssh_authorized_keys:
+              - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJnmnAsbSIKlLpWpQXhILxr1dY1kqcMG95CeBdV0/ITk chepkemoitoo3@gmail.com
+        EOT [90m-> null[0m[0m
+      [31m-[0m[0m content_base64sha256 = "aMXIo7/gNDQcXGfCQ57NT3WFzvY9V4ja735a60nwNRU=" [90m-> null[0m[0m
+      [31m-[0m[0m content_base64sha512 = "gwHHwg2xHrIYOAOYdN1ocAArUBB5ZA8AqGaiqQIrgXyFX9jMghlbmpDx61xCq4Mr+q5rkX3QfJUzPFy8q81HgQ==" [90m-> null[0m[0m
+      [31m-[0m[0m content_md5          = "825c204b9b281407a9dd80d7d5385f11" [90m-> null[0m[0m
+      [31m-[0m[0m content_sha1         = "f0950df8c9904fc634d8cafb2ca1153600d77e1a" [90m-> null[0m[0m
+      [31m-[0m[0m content_sha256       = "68c5c8a3bfe034341c5c67c2439ecd4f7585cef63d5788daef7e5aeb49f03515" [90m-> null[0m[0m
+      [31m-[0m[0m content_sha512       = "8301c7c20db11eb21838039874dd6870002b501079640f00a866a2a9022b817c855fd8cc82195b9a90f1eb5c42ab832bfaae6b917dd07c95333c5cbcabcd4781" [90m-> null[0m[0m
+      [31m-[0m[0m directory_permission = "0755" [90m-> null[0m[0m
+      [31m-[0m[0m file_permission      = "0644" [90m-> null[0m[0m
+      [31m-[0m[0m filename             = "./.generated/cloud-init-kijanikiosk-api.yaml" [90m-> null[0m[0m
+      [31m-[0m[0m id                   = "f0950df8c9904fc634d8cafb2ca1153600d77e1a" [90m-> null[0m[0m
+    }
+
+[1m  # module.servers["api"].multipass_instance.this[0m will be [1m[31mdestroyed[0m
+[0m  [31m-[0m[0m resource "multipass_instance" "this" {
+      [31m-[0m[0m cloudinit_file = "./.generated/cloud-init-kijanikiosk-api.yaml" [90m-> null[0m[0m
+      [31m-[0m[0m cpus           = 1 [90m-> null[0m[0m
+      [31m-[0m[0m disk           = "8GiB" [90m-> null[0m[0m
+      [31m-[0m[0m image          = "22.04" [90m-> null[0m[0m
+      [31m-[0m[0m ipv4           = "10.212.109.215" [90m-> null[0m[0m
+      [31m-[0m[0m memory         = "1GiB" [90m-> null[0m[0m
+      [31m-[0m[0m name           = "kijanikiosk-api" [90m-> null[0m[0m
+    }
+
+[1m  # module.servers["logs"].local_file.cloud_init[0m will be [1m[31mdestroyed[0m
+[0m  [31m-[0m[0m resource "local_file" "cloud_init" {
+      [31m-[0m[0m content              = <<-EOT
+            #cloud-config
+            ssh_authorized_keys:
+              - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJnmnAsbSIKlLpWpQXhILxr1dY1kqcMG95CeBdV0/ITk chepkemoitoo3@gmail.com
+        EOT [90m-> null[0m[0m
+      [31m-[0m[0m content_base64sha256 = "aMXIo7/gNDQcXGfCQ57NT3WFzvY9V4ja735a60nwNRU=" [90m-> null[0m[0m
+      [31m-[0m[0m content_base64sha512 = "gwHHwg2xHrIYOAOYdN1ocAArUBB5ZA8AqGaiqQIrgXyFX9jMghlbmpDx61xCq4Mr+q5rkX3QfJUzPFy8q81HgQ==" [90m-> null[0m[0m
+      [31m-[0m[0m content_md5          = "825c204b9b281407a9dd80d7d5385f11" [90m-> null[0m[0m
+      [31m-[0m[0m content_sha1         = "f0950df8c9904fc634d8cafb2ca1153600d77e1a" [90m-> null[0m[0m
+      [31m-[0m[0m content_sha256       = "68c5c8a3bfe034341c5c67c2439ecd4f7585cef63d5788daef7e5aeb49f03515" [90m-> null[0m[0m
+      [31m-[0m[0m content_sha512       = "8301c7c20db11eb21838039874dd6870002b501079640f00a866a2a9022b817c855fd8cc82195b9a90f1eb5c42ab832bfaae6b917dd07c95333c5cbcabcd4781" [90m-> null[0m[0m
+      [31m-[0m[0m directory_permission = "0755" [90m-> null[0m[0m
+      [31m-[0m[0m file_permission      = "0644" [90m-> null[0m[0m
+      [31m-[0m[0m filename             = "./.generated/cloud-init-kijanikiosk-logs.yaml" [90m-> null[0m[0m
+      [31m-[0m[0m id                   = "f0950df8c9904fc634d8cafb2ca1153600d77e1a" [90m-> null[0m[0m
+    }
+
+[1m  # module.servers["logs"].multipass_instance.this[0m will be [1m[31mdestroyed[0m
+[0m  [31m-[0m[0m resource "multipass_instance" "this" {
+      [31m-[0m[0m cloudinit_file = "./.generated/cloud-init-kijanikiosk-logs.yaml" [90m-> null[0m[0m
+      [31m-[0m[0m cpus           = 1 [90m-> null[0m[0m
+      [31m-[0m[0m disk           = "8GiB" [90m-> null[0m[0m
+      [31m-[0m[0m image          = "22.04" [90m-> null[0m[0m
+      [31m-[0m[0m ipv4           = "10.212.109.46" [90m-> null[0m[0m
+      [31m-[0m[0m memory         = "1GiB" [90m-> null[0m[0m
+      [31m-[0m[0m name           = "kijanikiosk-logs" [90m-> null[0m[0m
+    }
+
+[1m  # module.servers["payments"].local_file.cloud_init[0m will be [1m[31mdestroyed[0m
+[0m  [31m-[0m[0m resource "local_file" "cloud_init" {
+      [31m-[0m[0m content              = <<-EOT
+            #cloud-config
+            ssh_authorized_keys:
+              - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJnmnAsbSIKlLpWpQXhILxr1dY1kqcMG95CeBdV0/ITk chepkemoitoo3@gmail.com
+        EOT [90m-> null[0m[0m
+      [31m-[0m[0m content_base64sha256 = "aMXIo7/gNDQcXGfCQ57NT3WFzvY9V4ja735a60nwNRU=" [90m-> null[0m[0m
+      [31m-[0m[0m content_base64sha512 = "gwHHwg2xHrIYOAOYdN1ocAArUBB5ZA8AqGaiqQIrgXyFX9jMghlbmpDx61xCq4Mr+q5rkX3QfJUzPFy8q81HgQ==" [90m-> null[0m[0m
+      [31m-[0m[0m content_md5          = "825c204b9b281407a9dd80d7d5385f11" [90m-> null[0m[0m
+      [31m-[0m[0m content_sha1         = "f0950df8c9904fc634d8cafb2ca1153600d77e1a" [90m-> null[0m[0m
+      [31m-[0m[0m content_sha256       = "68c5c8a3bfe034341c5c67c2439ecd4f7585cef63d5788daef7e5aeb49f03515" [90m-> null[0m[0m
+      [31m-[0m[0m content_sha512       = "8301c7c20db11eb21838039874dd6870002b501079640f00a866a2a9022b817c855fd8cc82195b9a90f1eb5c42ab832bfaae6b917dd07c95333c5cbcabcd4781" [90m-> null[0m[0m
+      [31m-[0m[0m directory_permission = "0755" [90m-> null[0m[0m
+      [31m-[0m[0m file_permission      = "0644" [90m-> null[0m[0m
+      [31m-[0m[0m filename             = "./.generated/cloud-init-kijanikiosk-payments.yaml" [90m-> null[0m[0m
+      [31m-[0m[0m id                   = "f0950df8c9904fc634d8cafb2ca1153600d77e1a" [90m-> null[0m[0m
+    }
+
+[1m  # module.servers["payments"].multipass_instance.this[0m will be [1m[31mdestroyed[0m
+[0m  [31m-[0m[0m resource "multipass_instance" "this" {
+      [31m-[0m[0m cloudinit_file = "./.generated/cloud-init-kijanikiosk-payments.yaml" [90m-> null[0m[0m
+      [31m-[0m[0m cpus           = 1 [90m-> null[0m[0m
+      [31m-[0m[0m disk           = "8GiB" [90m-> null[0m[0m
+      [31m-[0m[0m image          = "22.04" [90m-> null[0m[0m
+      [31m-[0m[0m ipv4           = "10.212.109.159" [90m-> null[0m[0m
+      [31m-[0m[0m memory         = "1GiB" [90m-> null[0m[0m
+      [31m-[0m[0m name           = "kijanikiosk-payments" [90m-> null[0m[0m
+    }
+
+[1mPlan:[0m [0m0 to add, 0 to change, 6 to destroy.
+
+Changes to Outputs:
+  [31m-[0m[0m server_ips   = {
+      [31m-[0m[0m api      = "10.212.109.215"
+      [31m-[0m[0m logs     = "10.212.109.46"
+      [31m-[0m[0m payments = "10.212.109.159"
+    } [90m-> null[0m[0m
+  [31m-[0m[0m ssh_commands = {
+      [31m-[0m[0m api      = "ssh -i ~/.ssh/id_ed25519 ubuntu@10.212.109.215"
+      [31m-[0m[0m logs     = "ssh -i ~/.ssh/id_ed25519 ubuntu@10.212.109.46"
+      [31m-[0m[0m payments = "ssh -i ~/.ssh/id_ed25519 ubuntu@10.212.109.159"
+    } [90m-> null[0m[0m
+[0m[1mmodule.servers["logs"].multipass_instance.this: Destroying... [name=kijanikiosk-logs][0m[0m
+[0m[1mmodule.servers["api"].multipass_instance.this: Destroying... [name=kijanikiosk-api][0m[0m
+[0m[1mmodule.servers["payments"].multipass_instance.this: Destroying... [name=kijanikiosk-payments][0m[0m
+[0m[1mmodule.servers["logs"].multipass_instance.this: Destruction complete after 2s[0m
+[0m[1mmodule.servers["logs"].local_file.cloud_init: Destroying... [id=f0950df8c9904fc634d8cafb2ca1153600d77e1a][0m[0m
+[0m[1mmodule.servers["logs"].local_file.cloud_init: Destruction complete after 0s[0m
+[0m[1mmodule.servers["api"].multipass_instance.this: Destruction complete after 2s[0m
+[0m[1mmodule.servers["api"].local_file.cloud_init: Destroying... [id=f0950df8c9904fc634d8cafb2ca1153600d77e1a][0m[0m
+[0m[1mmodule.servers["api"].local_file.cloud_init: Destruction complete after 0s[0m
+[0m[1mmodule.servers["payments"].multipass_instance.this: Destruction complete after 3s[0m
+[0m[1mmodule.servers["payments"].local_file.cloud_init: Destroying... [id=f0950df8c9904fc634d8cafb2ca1153600d77e1a][0m[0m
+[0m[1mmodule.servers["payments"].local_file.cloud_init: Destruction complete after 0s[0m
+[0m[1m[32m
+Destroy complete! Resources: 6 destroyed.[0m

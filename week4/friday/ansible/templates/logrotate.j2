@@ -1,0 +1,13 @@
+{{ logs_dir }}/*.log {
+    daily
+    rotate {{ logrotate_keep_days }}
+    missingok
+    notifempty
+    compress
+    delaycompress
+    su {{ logs_dir_owner }} {{ app_group }}
+    sharedscripts
+    postrotate
+        systemctl reload {{ service_name }} 2>/dev/null || true
+    endscript
+}

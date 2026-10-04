@@ -1,0 +1,62 @@
+ansible_user: ubuntu
+ansible_ssh_private_key_file: ~/.ssh/id_ed25519
+
+base_packages:
+  - curl
+  - ufw
+  - logrotate
+  - acl
+held_packages:
+  - curl
+
+app_group: kijanikiosk
+service_users:
+  - kk-api
+  - kk-payments
+  - kk-logs
+service_shell: /usr/sbin/nologin
+
+config_dir: /opt/kijanikiosk/config
+config_dir_mode: "0750"
+logs_dir: /opt/kijanikiosk/shared/logs
+logs_dir_mode: "0770"
+
+log_acl_access:
+  - { user: kk-api, perms: rwx }
+  - { user: kk-payments, perms: rwx }
+  - { user: kk-logs, perms: rx }
+log_acl_default:
+  - { user: kk-api, perms: rwx }
+  - { user: kk-payments, perms: rwx }
+
+ssh_port: 22
+
+common_hardening:
+  - "ProtectSystem=strict"
+  - "ProtectHome=true"
+  - "PrivateTmp=true"
+  - "NoNewPrivileges=true"
+  - "CapabilityBoundingSet="
+  - "MemoryDenyWriteExecute=true"
+  - "RestrictRealtime=true"
+  - "RestrictNamespaces=true"
+  - "ProtectKernelTunables=true"
+  - "ProtectKernelModules=true"
+  - "ProtectControlGroups=true"
+  - "DevicePolicy=closed"
+  - "LockPersonality=true"
+  - "PrivateDevices=true"
+  - "IPAddressDeny=any"
+  - "SystemCallFilter=@system-service"
+  - "SystemCallArchitectures=native"
+  - "UMask=0027"
+
+journal_max_use: 500M
+logrotate_keep_days: 7
+
+service_env: {}
+extra_hardening: []
+firewall_ports: []
+
+config_dir_owner: root
+logs_dir_owner: kk-logs

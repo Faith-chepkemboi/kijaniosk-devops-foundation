@@ -1,0 +1,18 @@
+[Unit]
+Description={{ service_description }}
+After=network.target
+
+[Service]
+Type=simple
+User={{ service_user }}
+Group={{ app_group }}
+{% if service_env_file is defined %}
+EnvironmentFile={{ service_env_file }}
+{% endif %}
+ExecStart=/bin/bash -c "while true; do echo '{{ service_name }} active'; sleep 3600; done"
+Restart=always
+
+# Sandboxing
+{% for directive in common_hardening + extra_hardening %}
+{{ directive }}
+{% endfor %}
