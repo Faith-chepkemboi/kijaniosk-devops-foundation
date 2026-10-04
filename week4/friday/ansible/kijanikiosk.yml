@@ -78,3 +78,48 @@
         state: present
       loop: "{{ log_acl_default }}"
       tags: [directories]
+
+    # Phase 4: systemd units
+    - name: Write the service environment file
+      ansible.builtin.template:
+        src: service.env.j2
+        dest: "{{ service_env_file }}"
+        owner: root
+        group: "{{ app_group }}"
+        mode: "0640"
+      when: service_env_file is defined
+      notify: Restart service
+      tags: [systemd]
+
+    - name: Write the service unit file
+      ansible.builtin.template:
+        src: service.j2
+        dest: "/etc/systemd/system/{{ service_name }}.service"
+        owner: root
+        group: root
+        mode: "0644"
+      notify:
+        - Reload systemd
+        - Restart service
+      tags: [systemd]
+
+    - name: Apply pending systemd changes before starting
+      ansible.builtin.meta: flush_handlers
+      tags: [systemd]
+
+    - name: Enable and start the service
+      ansible.builtin.systemd:
+        name: "{{ service_name }}"
+        enabled: true
+        state: started
+      tags: [systemd]
+
+  handlers:
+    - name: Reload systemd
+      ansible.builtin.systemd:
+        daemon_reload: true
+
+    - name: Restart service
+      ansible.builtin.systemd:
+        name: "{{ service_name }}"
+        state: restarted
