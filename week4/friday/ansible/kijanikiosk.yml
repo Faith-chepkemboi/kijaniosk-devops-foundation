@@ -1,0 +1,80 @@
+---
+- name: Configure KijaniKiosk servers
+  hosts: kijanikiosk
+  become: true
+
+  tasks:
+    # Phase 1: packages
+    - name: Install base packages
+      ansible.builtin.apt:
+        name: "{{ base_packages }}"
+        state: present
+        update_cache: true
+        cache_valid_time: 3600
+        lock_timeout: 120
+      tags: [packages]
+
+    - name: Hold pinned packages
+      ansible.builtin.dpkg_selections:
+        name: "{{ item }}"
+        selection: hold
+      loop: "{{ held_packages }}"
+      tags: [packages]
+
+    # Phase 2: service accounts
+    - name: Create the shared group
+      ansible.builtin.group:
+        name: "{{ app_group }}"
+        system: true
+        state: present
+      tags: [accounts]
+
+    - name: Create service users
+      ansible.builtin.user:
+        name: "{{ item }}"
+        system: true
+        group: "{{ app_group }}"
+        shell: "{{ service_shell }}"
+        create_home: false
+      loop: "{{ service_users }}"
+      tags: [accounts]
+
+    # Phase 3: directories and ACLs
+    - name: Create the config directory
+      ansible.builtin.file:
+        path: "{{ config_dir }}"
+        state: directory
+        owner: "{{ config_dir_owner }}"
+        group: "{{ app_group }}"
+        mode: "{{ config_dir_mode }}"
+      tags: [directories]
+
+    - name: Create the shared logs directory
+      ansible.builtin.file:
+        path: "{{ logs_dir }}"
+        state: directory
+        owner: "{{ logs_dir_owner }}"
+        group: "{{ app_group }}"
+        mode: "{{ logs_dir_mode }}"
+      tags: [directories]
+
+    - name: Set access ACLs on the logs directory
+      ansible.posix.acl:
+        path: "{{ logs_dir }}"
+        entity: "{{ item.user }}"
+        etype: user
+        permissions: "{{ item.perms }}"
+        state: present
+      loop: "{{ log_acl_access }}"
+      tags: [directories]
+
+    - name: Set default ACLs on the logs directory
+      ansible.posix.acl:
+        path: "{{ logs_dir }}"
+        default: true
+        entity: "{{ item.user }}"
+        etype: user
+        permissions: "{{ item.perms }}"
+        state: present
+      loop: "{{ log_acl_default }}"
+      tags: [directories]

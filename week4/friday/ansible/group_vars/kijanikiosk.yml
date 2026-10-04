@@ -57,3 +57,6 @@ logrotate_keep_days: 7
 service_env: {}
 extra_hardening: []
 firewall_ports: []
+
+config_dir_owner: root
+logs_dir_owner: kk-logs
