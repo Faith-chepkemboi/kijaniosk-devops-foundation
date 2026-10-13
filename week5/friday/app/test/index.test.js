@@ -11,3 +11,7 @@ test('rejects a negative amount', () => {
 test('formats a receipt', () => {
   expect(formatReceipt('A1', 250)).toBe('Receipt A1: KES 250.00');
 });
+
+test('deliberate failure', () => {
+  expect(true).toBe(false);
+});
