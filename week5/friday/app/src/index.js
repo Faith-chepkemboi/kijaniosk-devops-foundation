@@ -12,4 +12,3 @@ function formatReceipt(id, amountKes) {
 }
 
 module.exports = { calculateFee, formatReceipt };
-var unused = ;
