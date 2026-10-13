@@ -79,6 +79,7 @@ pipeline {
                     )]) {
                         sh '''
                             set -e
+                            set +x
                             trap "rm -f .npmrc" EXIT
                             TOKEN=$(printf '%s:%s' "$NEXUS_USER" "$NEXUS_PASS" | base64 | tr -d '\\n')
                             {
