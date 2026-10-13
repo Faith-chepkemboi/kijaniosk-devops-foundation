@@ -12,3 +12,4 @@ Note: Jenkins prints "Failed in branch ..." for skipped parallel branches. They 
 | 5 | Publish | Wrong credential ID `wrong-id` (build #15) | Lint, Build, Verify, Archive passed. Publish red (`Could not find credentials entry`). Post ran. Artifact in Jenkins, none in Nexus. | Publish is last, so a failure leaves a tested, archived build in Jenkins while Nexus holds no half-published version. |
 
 All faults were reverted and the pipeline returned to green after each (final restore: build #17).
+Note: build #16 was a repeat run of the same Publish fault (same commit, same wrong-id error), before the revert in build #17.
