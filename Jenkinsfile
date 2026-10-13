@@ -73,7 +73,7 @@ pipeline {
             steps {
                 dir(env.APP_DIR) {
                     withCredentials([usernamePassword(
-                        credentialsId: 'wrong-id',
+                        credentialsId: 'nexus-credentials',
                         usernameVariable: 'NEXUS_USER',
                         passwordVariable: 'NEXUS_PASS'
                     )]) {
