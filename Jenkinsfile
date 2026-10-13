@@ -37,7 +37,7 @@ pipeline {
         stage('Build') {
             steps {
                 dir(env.APP_DIR) {
-                    sh 'npm run build'
+                    sh 'npm run build-does-not-exist'
                     sh 'test -d "$BUILD_DIR" && [ -n "$(ls -A "$BUILD_DIR")" ]'
                 }
             }
