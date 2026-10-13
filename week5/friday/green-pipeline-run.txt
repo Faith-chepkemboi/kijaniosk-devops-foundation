@@ -22,11 +22,11 @@ using GIT_ASKPASS to set credentials github-token
  > git config --add remote.origin.fetch +refs/heads/*:refs/remotes/origin/* # timeout=10
 Avoid second fetch
  > git rev-parse refs/remotes/origin/feature/week5-ci-pipeline^{commit} # timeout=10
-Checking out Revision f1de1143642c9b556e8395438eb5a5c328318a61 (refs/remotes/origin/feature/week5-ci-pipeline)
+Checking out Revision 84ca883c495520c3a23e3e0c35169129dc44720a (refs/remotes/origin/feature/week5-ci-pipeline)
  > git config core.sparsecheckout # timeout=10
- > git checkout -f f1de1143642c9b556e8395438eb5a5c328318a61 # timeout=10
-Commit message: "Stop shell tracing in Publish so no token fragments reach the log"
- > git rev-list --no-walk 5fbb18246b535776856ba6c79fcd7350da50b7e6 # timeout=10
+ > git checkout -f 84ca883c495520c3a23e3e0c35169129dc44720a # timeout=10
+Commit message: "Revert "FAULT: publish stage failure""
+ > git rev-list --no-walk 985324b49d85eccfc81ba2760d09626ea92c4925 # timeout=10
 [Pipeline] }
 [Pipeline] // stage
 [Pipeline] withEnv
@@ -42,7 +42,7 @@ Commit message: "Stop shell tracing in Publish so no token fragments reach the l
 [Pipeline] withDockerContainer
 Jenkins seems to be running inside container db45a72f927fd2fd78cf24e98c7bb1e9cc27de085367ed757976fefb2bad58ce
 $ docker run -t -d -u 0:0 -w /var/jenkins_home/workspace/kijanikiosk-payments-pipeline --volumes-from db45a72f927fd2fd78cf24e98c7bb1e9cc27de085367ed757976fefb2bad58ce -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** node:18.20.8-alpine cat
-$ docker top b64d351a5d173f5c11c85eab1acc62993fbb012f5ee215aac79c29a3a6ea49e0 -eo pid,comm
+$ docker top fa596ddd35f1200b7ad49be8f48666177ebec377f9f07fe2c3b38d36b3e37f52 -eo pid,comm
 [Pipeline] {
 [Pipeline] sh
 + node -p 'require('"'"'./week5/friday/app/package.json'"'"').version'
@@ -68,10 +68,10 @@ npm warn deprecated rimraf@3.0.2: Rimraf versions prior to v4 are no longer supp
 npm warn deprecated inflight@1.0.6: This module is not supported, and leaks memory. Do not use it. Check out lru-cache if you want a good and tested way to coalesce async requests by a key value, which is much more comprehensive and powerful.
 npm warn deprecated glob@7.2.3: Old versions of glob are not supported, and contain widely publicized security vulnerabilities, which have been fixed in the current version. Please update. Support for old versions may be purchased (at exorbitant rates) by contacting i@izs.me
 npm warn deprecated eslint@8.57.1: This version is no longer supported. Please see https://eslint.org/version-support for other options.
-npm warn deprecated @humanwhocodes/config-array@0.13.0: Use @eslint/config-array instead
 npm warn deprecated @humanwhocodes/object-schema@2.0.3: Use @eslint/object-schema instead
+npm warn deprecated @humanwhocodes/config-array@0.13.0: Use @eslint/config-array instead
 
-added 340 packages, and audited 341 packages in 16s
+added 340 packages, and audited 341 packages in 14s
 
 51 packages are looking for funding
   run `npm fund` for details
@@ -145,14 +145,14 @@ found 0 vulnerabilities
 [Pipeline] // stage
 [Pipeline] }
 PASS test/index.test.js
-  ✓ calculates a 1.5% fee (4 ms)
+  ✓ calculates a 1.5% fee (3 ms)
   ✓ rejects a negative amount (6 ms)
-  ✓ formats a receipt (1 ms)
+  ✓ formats a receipt
 
 Test Suites: 1 passed, 1 total
 Tests:       3 passed, 3 total
 Snapshots:   0 total
-Time:        0.582 s
+Time:        0.56 s
 Ran all test suites.
 [Pipeline] }
 [Pipeline] // dir
@@ -184,24 +184,24 @@ Masking supported pattern matches of $NEXUS_PASS
 [Pipeline] sh
 + set -e
 + set +x
-v1.0.0-f1de114
+v1.0.0-84ca883
 npm notice
-npm notice package: kijanikiosk-payments@1.0.0-f1de114
+npm notice package: kijanikiosk-payments@1.0.0-84ca883
 npm notice Tarball Contents
 npm notice 390B dist/index.js
 npm notice 621B package.json
 npm notice Tarball Details
 npm notice name: kijanikiosk-payments
-npm notice version: 1.0.0-f1de114
-npm notice filename: kijanikiosk-payments-1.0.0-f1de114.tgz
-npm notice package size: 653 B
+npm notice version: 1.0.0-84ca883
+npm notice filename: kijanikiosk-payments-1.0.0-84ca883.tgz
+npm notice package size: 654 B
 npm notice unpacked size: 1.0 kB
-npm notice shasum: 64a81b4f241511277feabecdddc453a79baaa04c
-npm notice integrity: sha512-UezPw3OyEEWGX[...]tz2JiQdLIHDlA==
+npm notice shasum: 76a7bd0d79de1d59de6d0f60c4b8125a1f98f84a
+npm notice integrity: sha512-XBzJ/4sKBfF0g[...]uFZay8mRv9ODw==
 npm notice total files: 2
 npm notice
 npm notice Publishing to http://172.17.0.1:8081/repository/npm-kijanikiosk/ with tag latest and default access
-+ kijanikiosk-payments@1.0.0-f1de114
++ kijanikiosk-payments@1.0.0-84ca883
 [Pipeline] }
 [Pipeline] // withCredentials
 [Pipeline] }
@@ -215,9 +215,9 @@ npm notice Publishing to http://172.17.0.1:8081/repository/npm-kijanikiosk/ with
 [WS-CLEANUP] Deferred wipeout is used...
 [WS-CLEANUP] done
 [Pipeline] echo
-Build status changed to SUCCESS - kijanikiosk-payments-pipeline #5
+Build status changed to SUCCESS - kijanikiosk-payments-pipeline #17
 [Pipeline] echo
-Published kijanikiosk-payments@1.0.0-f1de114 to http://172.17.0.1:8081/repository/npm-kijanikiosk/
+Published kijanikiosk-payments@1.0.0-84ca883 to http://172.17.0.1:8081/repository/npm-kijanikiosk/
 [Pipeline] }
 [Pipeline] // stage
 [Pipeline] }
@@ -225,8 +225,8 @@ Published kijanikiosk-payments@1.0.0-f1de114 to http://172.17.0.1:8081/repositor
 [Pipeline] }
 [Pipeline] // withEnv
 [Pipeline] }
-$ docker stop --time=1 b64d351a5d173f5c11c85eab1acc62993fbb012f5ee215aac79c29a3a6ea49e0
-$ docker rm -f --volumes b64d351a5d173f5c11c85eab1acc62993fbb012f5ee215aac79c29a3a6ea49e0
+$ docker stop --time=1 fa596ddd35f1200b7ad49be8f48666177ebec377f9f07fe2c3b38d36b3e37f52
+$ docker rm -f --volumes fa596ddd35f1200b7ad49be8f48666177ebec377f9f07fe2c3b38d36b3e37f52
 [Pipeline] // withDockerContainer
 [Pipeline] }
 [Pipeline] // withEnv
