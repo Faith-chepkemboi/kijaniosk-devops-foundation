@@ -13,3 +13,4 @@ Note: Jenkins prints "Failed in branch ..." for skipped parallel branches. They 
 
 All faults were reverted and the pipeline returned to green after each (final restore: build #17).
 Note: build #16 was a repeat run of the same Publish fault (same commit, same wrong-id error), before the revert in build #17.
+Note: build #18 failed at Publish with E401 after the Nexus password was rotated but before the Jenkins credential was updated. Build #19 (same commit) passed once the credential matched.
