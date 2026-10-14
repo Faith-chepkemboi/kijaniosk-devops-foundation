@@ -1,0 +1,236 @@
+Started by user Sote Faith
+Obtained Jenkinsfile from git https://github.com/Faith-chepkemboi/kijaniosk-devops-foundation.git
+[Pipeline] Start of Pipeline
+[Pipeline] node
+Running on Jenkins in /var/jenkins_home/workspace/kijanikiosk-payments-pipeline
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (Declarative: Checkout SCM)
+[Pipeline] checkout
+Selected Git installation does not exist. Using Default
+The recommended git tool is: NONE
+using credential github-token
+Cloning the remote Git repository
+Cloning repository https://github.com/Faith-chepkemboi/kijaniosk-devops-foundation.git
+ > git init /var/jenkins_home/workspace/kijanikiosk-payments-pipeline # timeout=10
+Fetching upstream changes from https://github.com/Faith-chepkemboi/kijaniosk-devops-foundation.git
+ > git --version # timeout=10
+ > git --version # 'git version 2.47.3'
+using GIT_ASKPASS to set credentials github-token
+ > git fetch --tags --force --progress -- https://github.com/Faith-chepkemboi/kijaniosk-devops-foundation.git +refs/heads/*:refs/remotes/origin/* # timeout=10
+ > git config remote.origin.url https://github.com/Faith-chepkemboi/kijaniosk-devops-foundation.git # timeout=10
+ > git config --add remote.origin.fetch +refs/heads/*:refs/remotes/origin/* # timeout=10
+Avoid second fetch
+ > git rev-parse refs/remotes/origin/feature/week5-ci-pipeline^{commit} # timeout=10
+Checking out Revision 8a2dd3c4eec94db9ac6a4911bc60dccd592e51c1 (refs/remotes/origin/feature/week5-ci-pipeline)
+ > git config core.sparsecheckout # timeout=10
+ > git checkout -f 8a2dd3c4eec94db9ac6a4911bc60dccd592e51c1 # timeout=10
+Commit message: "Add fault injection log, credential audit, final green log and Nexus screenshot"
+ > git rev-list --no-walk 8a2dd3c4eec94db9ac6a4911bc60dccd592e51c1 # timeout=10
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] isUnix
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] sh
++ docker inspect -f . node:18.20.8-alpine
+.
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] withDockerContainer
+Jenkins seems to be running inside container db45a72f927fd2fd78cf24e98c7bb1e9cc27de085367ed757976fefb2bad58ce
+$ docker run -t -d -u 0:0 -w /var/jenkins_home/workspace/kijanikiosk-payments-pipeline --volumes-from db45a72f927fd2fd78cf24e98c7bb1e9cc27de085367ed757976fefb2bad58ce -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** node:18.20.8-alpine cat
+$ docker top a13c8d85184a132fc6d126456e30552e52d7cac7d338010a887213ee8d062f52 -eo pid,comm
+[Pipeline] {
+[Pipeline] sh
++ node -p 'require('"'"'./week5/friday/app/package.json'"'"').version'
+[Pipeline] sh
++ node -p 'require('"'"'./week5/friday/app/package.json'"'"').version'
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] timeout
+Timeout set to expire in 15 min
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (Lint)
+[Pipeline] dir
+Running in /var/jenkins_home/workspace/kijanikiosk-payments-pipeline/week5/friday/app
+[Pipeline] {
+[Pipeline] sh
++ node --version
+v18.20.8
+[Pipeline] sh
++ npm ci
+npm warn deprecated uuid@8.3.2: uuid@10 and below is no longer supported.  For ESM codebases, update to uuid@latest.  For CommonJS codebases, use uuid@11 (but be aware this version will likely be deprecated in 2028).
+npm warn deprecated rimraf@3.0.2: Rimraf versions prior to v4 are no longer supported
+npm warn deprecated inflight@1.0.6: This module is not supported, and leaks memory. Do not use it. Check out lru-cache if you want a good and tested way to coalesce async requests by a key value, which is much more comprehensive and powerful.
+npm warn deprecated glob@7.2.3: Old versions of glob are not supported, and contain widely publicized security vulnerabilities, which have been fixed in the current version. Please update. Support for old versions may be purchased (at exorbitant rates) by contacting i@izs.me
+npm warn deprecated eslint@8.57.1: This version is no longer supported. Please see https://eslint.org/version-support for other options.
+npm warn deprecated @humanwhocodes/object-schema@2.0.3: Use @eslint/object-schema instead
+npm warn deprecated @humanwhocodes/config-array@0.13.0: Use @eslint/config-array instead
+
+added 340 packages, and audited 341 packages in 17s
+
+51 packages are looking for funding
+  run `npm fund` for details
+
+35 vulnerabilities (7 moderate, 28 high)
+
+To address issues that do not require attention, run:
+  npm audit fix
+
+To address all issues (including breaking changes), run:
+  npm audit fix --force
+
+Run `npm audit` for details.
+[Pipeline] sh
++ npm run lint
+
+> kijanikiosk-payments@1.0.0 lint
+> eslint src test
+
+[Pipeline] }
+[Pipeline] // dir
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Build)
+[Pipeline] dir
+Running in /var/jenkins_home/workspace/kijanikiosk-payments-pipeline/week5/friday/app
+[Pipeline] {
+[Pipeline] sh
++ npm run build
+
+> kijanikiosk-payments@1.0.0 build
+> node build.js
+
+Build complete: dist/index.js
+[Pipeline] sh
++ test -d dist
++ ls -A dist
++ '[' -n index.js ]
+[Pipeline] }
+[Pipeline] // dir
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Verify)
+[Pipeline] parallel
+[Pipeline] { (Branch: Test)
+[Pipeline] { (Branch: Security Audit)
+[Pipeline] stage
+[Pipeline] { (Test)
+[Pipeline] stage
+[Pipeline] { (Security Audit)
+[Pipeline] dir
+Running in /var/jenkins_home/workspace/kijanikiosk-payments-pipeline/week5/friday/app
+[Pipeline] {
+[Pipeline] dir
+Running in /var/jenkins_home/workspace/kijanikiosk-payments-pipeline/week5/friday/app
+[Pipeline] {
+[Pipeline] sh
+[Pipeline] sh
++ npm test
++ npm audit '--omit=dev' '--audit-level=high'
+
+> kijanikiosk-payments@1.0.0 test
+> jest --ci
+
+found 0 vulnerabilities
+[Pipeline] }
+[Pipeline] // dir
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+PASS test/index.test.js
+  ✓ calculates a 1.5% fee (5 ms)
+  ✓ rejects a negative amount (8 ms)
+  ✓ formats a receipt
+
+Test Suites: 1 passed, 1 total
+Tests:       3 passed, 3 total
+Snapshots:   0 total
+Time:        0.612 s
+Ran all test suites.
+[Pipeline] }
+[Pipeline] // dir
+Post stage
+[Pipeline] junit
+Recording test results
+[Checks API] No suitable checks publisher found.
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+[Pipeline] // parallel
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Archive)
+[Pipeline] archiveArtifacts
+Archiving artifacts
+Recording fingerprints
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Publish)
+[Pipeline] dir
+Running in /var/jenkins_home/workspace/kijanikiosk-payments-pipeline/week5/friday/app
+[Pipeline] {
+[Pipeline] withCredentials
+Masking supported pattern matches of $NEXUS_PASS
+[Pipeline] {
+[Pipeline] sh
++ set -e
++ set +x
+v1.0.0-8a2dd3c
+npm notice
+npm notice package: kijanikiosk-payments@1.0.0-8a2dd3c
+npm notice Tarball Contents
+npm notice 390B dist/index.js
+npm notice 621B package.json
+npm notice Tarball Details
+npm notice name: kijanikiosk-payments
+npm notice version: 1.0.0-8a2dd3c
+npm notice filename: kijanikiosk-payments-1.0.0-8a2dd3c.tgz
+npm notice package size: 654 B
+npm notice unpacked size: 1.0 kB
+npm notice shasum: 4dcc9c37fc80af6addf9a1f4a4ef01a4b81b1630
+npm notice integrity: sha512-TIAP+dCq9EcnI[...]NHhqz7X9zS7Rg==
+npm notice total files: 2
+npm notice
+npm notice Publishing to http://172.17.0.1:8081/repository/npm-kijanikiosk/ with tag latest and default access
++ kijanikiosk-payments@1.0.0-8a2dd3c
+[Pipeline] }
+[Pipeline] // withCredentials
+[Pipeline] }
+[Pipeline] // dir
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Declarative: Post Actions)
+[Pipeline] cleanWs
+[WS-CLEANUP] Deleting project workspace...
+[WS-CLEANUP] Deferred wipeout is used...
+[WS-CLEANUP] done
+[Pipeline] echo
+Build status changed to SUCCESS - kijanikiosk-payments-pipeline #19
+[Pipeline] echo
+Published kijanikiosk-payments@1.0.0-8a2dd3c to http://172.17.0.1:8081/repository/npm-kijanikiosk/
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+[Pipeline] // timeout
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+$ docker stop --time=1 a13c8d85184a132fc6d126456e30552e52d7cac7d338010a887213ee8d062f52
+$ docker rm -f --volumes a13c8d85184a132fc6d126456e30552e52d7cac7d338010a887213ee8d062f52
+[Pipeline] // withDockerContainer
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // node
+[Pipeline] End of Pipeline
+Finished: SUCCESS
