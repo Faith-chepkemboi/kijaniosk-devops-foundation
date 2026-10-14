@@ -1,0 +1,258 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>KijaniKiosk</title>
+  <style>
+    body { margin: 0; font-family: system-ui, sans-serif; background: #F5F2EA; color: #1B2420; }
+    header { background: #1E5B3A; padding: 12px 24px; display: flex; flex-wrap: wrap; gap: 12px; align-items: center; justify-content: space-between; }
+    .brand { color: #F5F2EA; font-size: 22px; font-weight: 700; }
+    nav { display: flex; flex-wrap: wrap; gap: 4px; }
+    nav button { min-height: 44px; padding: 0 16px; border: 0; border-radius: 8px; background: transparent; color: #DCEBDD; font-size: 16px; cursor: pointer; }
+    nav button[aria-current="true"] { background: rgba(245, 242, 234, 0.2); color: #fff; font-weight: 700; }
+    main { max-width: 1000px; margin: 0 auto; padding: 24px; }
+    h1 { margin: 0 0 20px; font-size: 32px; }
+    .cards { display: flex; flex-wrap: wrap; gap: 16px; margin-bottom: 24px; }
+    .card { flex: 1 1 200px; background: #fff; border: 1px solid #DDD8CB; border-radius: 12px; padding: 20px; }
+    .card span { display: block; color: #5B655F; font-size: 15px; }
+    .card strong { font-size: 30px; }
+    .panel { background: #fff; border: 1px solid #DDD8CB; border-radius: 12px; padding: 20px; margin-bottom: 24px; overflow-x: auto; }
+    table { width: 100%; border-collapse: collapse; }
+    th { text-align: left; color: #5B655F; font-size: 14px; font-weight: 500; padding: 8px 0; }
+    td { padding: 12px 0; border-top: 1px solid #EAE6DA; }
+    label { display: block; font-weight: 500; margin: 12px 0 6px; }
+    input, select { height: 44px; padding: 0 12px; font-size: 16px; border: 1px solid #8C8573; border-radius: 8px; min-width: 200px; }
+    button.primary { height: 48px; padding: 0 24px; margin-top: 16px; border: 0; border-radius: 8px; background: #1E5B3A; color: #fff; font-size: 16px; font-weight: 700; cursor: pointer; }
+    .total { font-size: 30px; font-weight: 700; margin-top: 16px; }
+    .message { margin-top: 12px; font-weight: 500; }
+    .message.error { color: #9A3412; }
+    .message.ok { color: #1E5B3A; }
+  </style>
+</head>
+<body>
+  <header>
+    <span class="brand">KijaniKiosk</span>
+    <nav>
+      <button data-view="dashboard">Dashboard</button>
+      <button data-view="stock">Stock</button>
+      <button data-view="sale">Record a sale</button>
+      <button data-view="report">Daily report</button>
+    </nav>
+  </header>
+
+  <main>
+    <!-- Dashboard: today's numbers and what is running low -->
+    <section id="dashboard" class="view">
+      <h1>Today at the kiosk</h1>
+      <div class="cards">
+        <div class="card"><span>Sales today</span><strong id="d-sales">KES 0</strong></div>
+        <div class="card"><span>Items sold</span><strong id="d-items">0</strong></div>
+        <div class="card"><span>Low on stock</span><strong id="d-low">0</strong></div>
+      </div>
+      <div class="panel">
+        <h2>Running low</h2>
+        <table><tbody id="low-body"></tbody></table>
+      </div>
+    </section>
+
+    <!-- Stock: every item, plus a form to add a new one -->
+    <section id="stock" class="view" hidden>
+      <h1>Stock</h1>
+      <div class="panel">
+        <table>
+          <thead><tr><th>Item</th><th>Price (KES)</th><th>In stock</th><th>Status</th></tr></thead>
+          <tbody id="stock-body"></tbody>
+        </table>
+      </div>
+      <div class="panel">
+        <h2>Add an item</h2>
+        <label for="new-name">Item name</label>
+        <input id="new-name" type="text">
+        <label for="new-price">Price (KES)</label>
+        <input id="new-price" type="number" min="0">
+        <label for="new-qty">Quantity</label>
+        <input id="new-qty" type="number" min="0">
+        <div><button class="primary" id="add-item">Save item</button></div>
+        <p class="message" id="add-message"></p>
+      </div>
+    </section>
+
+    <!-- Record a sale: pick an item and a quantity -->
+    <section id="sale" class="view" hidden>
+      <h1>Record a sale</h1>
+      <div class="panel">
+        <label for="sale-item">Item</label>
+        <select id="sale-item"></select>
+        <label for="sale-qty">How many</label>
+        <input id="sale-qty" type="number" min="1" value="1">
+        <div class="total" id="sale-total">KES 0</div>
+        <button class="primary" id="record-sale">Record sale</button>
+        <p class="message" id="sale-message"></p>
+      </div>
+    </section>
+
+    <!-- Daily report: totals and every sale -->
+    <section id="report" class="view" hidden>
+      <h1>Daily report</h1>
+      <div class="cards">
+        <div class="card"><span>Total sales</span><strong id="r-total">KES 0</strong></div>
+        <div class="card"><span>Items sold</span><strong id="r-items">0</strong></div>
+        <div class="card"><span>Number of sales</span><strong id="r-count">0</strong></div>
+      </div>
+      <div class="panel">
+        <table>
+          <thead><tr><th>Time</th><th>Item</th><th>Qty</th><th>Amount (KES)</th></tr></thead>
+          <tbody id="sales-body"></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    // Shortcuts used throughout the page.
+    const $ = (id) => document.getElementById(id);
+    const money = (n) => 'KES ' + n.toLocaleString('en-KE');
+    const LOW = 5; // at or below this many, an item counts as running low
+
+    // Talk to the API. If it answers with an error, throw it so we can show the message.
+    async function api(path, options) {
+      const res = await fetch(path, options);
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || 'Something went wrong');
+      return data;
+    }
+
+    // Fill a table body with rows. textContent keeps typed names safe from injected HTML.
+    function fillTable(bodyId, rows) {
+      const body = $(bodyId);
+      body.replaceChildren();
+      rows.forEach((row) => {
+        const tr = document.createElement('tr');
+        row.forEach((value) => {
+          const td = document.createElement('td');
+          td.textContent = value;
+          tr.appendChild(td);
+        });
+        body.appendChild(tr);
+      });
+    }
+
+    function status(item) {
+      if (item.quantity === 0) return 'Out of stock';
+      if (item.quantity <= LOW) return 'Running low';
+      return 'In stock';
+    }
+
+    let items = [];
+    let report = { totalSales: 0, itemsSold: 0, numberOfSales: 0, sales: [] };
+
+    // Ask the API for the latest data, then redraw every screen.
+    async function load() {
+      items = await api('/items');
+      report = await api('/report');
+      render();
+    }
+
+    function render() {
+      // Dashboard
+      const low = items.filter((i) => i.quantity <= LOW);
+      $('d-sales').textContent = money(report.totalSales);
+      $('d-items').textContent = report.itemsSold;
+      $('d-low').textContent = low.length + (low.length === 1 ? ' item' : ' items');
+      fillTable('low-body', low.map((i) => [i.name, i.quantity + ' left']));
+
+      // Stock
+      fillTable('stock-body', items.map((i) => [i.name, i.price, i.quantity, status(i)]));
+
+      // Record a sale: rebuild the item list but keep the current choice
+      const select = $('sale-item');
+      const chosen = select.value;
+      select.replaceChildren();
+      items.forEach((i) => {
+        const option = document.createElement('option');
+        option.value = i.id;
+        option.textContent = i.name + ', KES ' + i.price + ' (' + i.quantity + ' in stock)';
+        select.appendChild(option);
+      });
+      if (chosen) select.value = chosen;
+      updateTotal();
+
+      // Daily report
+      $('r-total').textContent = money(report.totalSales);
+      $('r-items').textContent = report.itemsSold;
+      $('r-count').textContent = report.numberOfSales;
+      fillTable('sales-body', report.sales.map((s) => [
+        new Date(s.time).toLocaleTimeString('en-KE', { hour: 'numeric', minute: '2-digit' }),
+        s.name, s.quantity, s.amount,
+      ]));
+    }
+
+    // Show the price for the chosen item and quantity before the sale is recorded.
+    function updateTotal() {
+      const item = items.find((i) => i.id === Number($('sale-item').value));
+      const qty = Number($('sale-qty').value);
+      $('sale-total').textContent = item && qty > 0 ? money(item.price * qty) : 'KES 0';
+    }
+
+    function showMessage(id, text, kind) {
+      const el = $(id);
+      el.textContent = text;
+      el.className = 'message ' + kind;
+    }
+
+    // Switch between the four screens.
+    function show(name) {
+      document.querySelectorAll('.view').forEach((v) => { v.hidden = v.id !== name; });
+      document.querySelectorAll('nav button').forEach((b) => {
+        b.setAttribute('aria-current', String(b.dataset.view === name));
+      });
+    }
+    document.querySelectorAll('nav button').forEach((b) => {
+      b.addEventListener('click', () => show(b.dataset.view));
+    });
+
+    // Record a sale.
+    $('sale-item').addEventListener('change', updateTotal);
+    $('sale-qty').addEventListener('input', updateTotal);
+    $('record-sale').addEventListener('click', async () => {
+      try {
+        const sale = await api('/sales', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ itemId: Number($('sale-item').value), quantity: Number($('sale-qty').value) }),
+        });
+        showMessage('sale-message', 'Sale recorded: ' + sale.name + ', ' + money(sale.amount), 'ok');
+        await load();
+      } catch (err) {
+        showMessage('sale-message', err.message, 'error');
+      }
+    });
+
+    // Add a new item to the stock list.
+    $('add-item').addEventListener('click', async () => {
+      try {
+        const item = await api('/items', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            name: $('new-name').value.trim(),
+            price: Number($('new-price').value),
+            quantity: Number($('new-qty').value),
+          }),
+        });
+        showMessage('add-message', 'Saved ' + item.name, 'ok');
+        $('new-name').value = '';
+        $('new-price').value = '';
+        $('new-qty').value = '';
+        await load();
+      } catch (err) {
+        showMessage('add-message', err.message, 'error');
+      }
+    });
+
+    show('dashboard');
+    load();
+  </script>
+</body>
+</html>
