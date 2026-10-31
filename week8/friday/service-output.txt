@@ -1,0 +1,15 @@
+=== service ===
+NAME                  TYPE       CLUSTER-IP      EXTERNAL-IP   PORT(S)          AGE
+kk-payments-service   NodePort   10.102.149.50   <none>        3001:30001/TCP   39m
+
+=== endpoints ===
+Warning: v1 Endpoints is deprecated in v1.33+; use discovery.k8s.io/v1 EndpointSlice
+NAME                  ENDPOINTS                         AGE
+kk-payments-service   10.244.0.3:3001,10.244.0.4:3001   39m
+
+=== NodePort curl from outside the cluster ===
+minikube ip: 192.168.49.2
+{"status":"ok","service":"kk-payments","version":"1.0.0-d2a74fc"}
+
+=== in-cluster DNS name, called from inside a Pod ===
+{"status":"ok","service":"kk-payments","version":"1.0.0-d2a74fc"}

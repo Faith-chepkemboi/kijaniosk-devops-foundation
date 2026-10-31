@@ -1,0 +1,167 @@
+=== version computation ===
+package.json version: 1.0.0
+git short SHA: d2a74fc
+tag: 1.0.0-d2a74fc
+
+=== tag and push ===
+The push refers to repository [ghcr.io/faith-chepkemboi/kk-payments]
+44136fa355b3: Waiting
+3ebff1d21f03: Waiting
+25f1d6b1951a: Waiting
+8d33ef58e9cd: Waiting
+3ebff1d21f03: Waiting
+25f1d6b1951a: Waiting
+8d33ef58e9cd: Waiting
+44136fa355b3: Waiting
+44136fa355b3: Waiting
+3ebff1d21f03: Waiting
+25f1d6b1951a: Waiting
+8d33ef58e9cd: Waiting
+8d33ef58e9cd: Waiting
+44136fa355b3: Waiting
+3ebff1d21f03: Waiting
+25f1d6b1951a: Waiting
+8d33ef58e9cd: Waiting
+44136fa355b3: Waiting
+3ebff1d21f03: Waiting
+25f1d6b1951a: Waiting
+8d33ef58e9cd: Waiting
+44136fa355b3: Waiting
+3ebff1d21f03: Waiting
+25f1d6b1951a: Waiting
+8d33ef58e9cd: Waiting
+44136fa355b3: Waiting
+3ebff1d21f03: Waiting
+25f1d6b1951a: Waiting
+44136fa355b3: Waiting
+3ebff1d21f03: Waiting
+25f1d6b1951a: Waiting
+8d33ef58e9cd: Waiting
+8d33ef58e9cd: Waiting
+44136fa355b3: Waiting
+3ebff1d21f03: Waiting
+25f1d6b1951a: Waiting
+8d33ef58e9cd: Waiting
+44136fa355b3: Waiting
+3ebff1d21f03: Waiting
+25f1d6b1951a: Waiting
+3ebff1d21f03: Waiting
+25f1d6b1951a: Waiting
+8d33ef58e9cd: Waiting
+44136fa355b3: Waiting
+25f1d6b1951a: Waiting
+8d33ef58e9cd: Waiting
+44136fa355b3: Waiting
+3ebff1d21f03: Waiting
+8d33ef58e9cd: Waiting
+44136fa355b3: Waiting
+3ebff1d21f03: Waiting
+25f1d6b1951a: Waiting
+8d33ef58e9cd: Waiting
+44136fa355b3: Waiting
+3ebff1d21f03: Waiting
+25f1d6b1951a: Waiting
+3ebff1d21f03: Waiting
+25f1d6b1951a: Waiting
+8d33ef58e9cd: Waiting
+44136fa355b3: Waiting
+8d33ef58e9cd: Waiting
+44136fa355b3: Waiting
+3ebff1d21f03: Waiting
+25f1d6b1951a: Waiting
+44136fa355b3: Waiting
+3ebff1d21f03: Waiting
+25f1d6b1951a: Waiting
+8d33ef58e9cd: Waiting
+8d33ef58e9cd: Waiting
+44136fa355b3: Waiting
+3ebff1d21f03: Waiting
+25f1d6b1951a: Waiting
+8d33ef58e9cd: Waiting
+44136fa355b3: Waiting
+3ebff1d21f03: Waiting
+25f1d6b1951a: Waiting
+8d33ef58e9cd: Waiting
+44136fa355b3: Waiting
+8d33ef58e9cd: Waiting
+44136fa355b3: Waiting
+44136fa355b3: Pushed
+a2b99043328d: Waiting
+a2b99043328d: Waiting
+a2b99043328d: Waiting
+a2b99043328d: Waiting
+a2b99043328d: Waiting
+a2b99043328d: Waiting
+a2b99043328d: Waiting
+7fea19673380: Waiting
+8d33ef58e9cd: Pushed
+cc9df7179ec1: Waiting
+a2b99043328d: Waiting
+7fea19673380: Waiting
+cc9df7179ec1: Waiting
+cc9df7179ec1: Waiting
+a2b99043328d: Waiting
+7fea19673380: Waiting
+a2b99043328d: Waiting
+7fea19673380: Waiting
+cc9df7179ec1: Waiting
+7fea19673380: Waiting
+cc9df7179ec1: Waiting
+7fea19673380: Waiting
+cc9df7179ec1: Waiting
+cc9df7179ec1: Waiting
+7fea19673380: Waiting
+7fea19673380: Waiting
+cc9df7179ec1: Waiting
+ed9f52790f16: Waiting
+cc9df7179ec1: Waiting
+25f1d6b1951a: Pushed
+7fea19673380: Waiting
+cc9df7179ec1: Waiting
+7fea19673380: Waiting
+ed9f52790f16: Waiting
+ed9f52790f16: Waiting
+ed9f52790f16: Waiting
+ed9f52790f16: Waiting
+ed9f52790f16: Waiting
+ed9f52790f16: Waiting
+a2b99043328d: Pushed
+7fea19673380: Pushed
+cc9df7179ec1: Pushed
+ed9f52790f16: Pushed
+3ebff1d21f03: Pushed
+1.0.0-d2a74fc: digest: sha256:2ff0a68dd7014b59d9352f9e52fdbfa7605a0e0b9196bce84d171549f49ef966 size: 856
+
+=== delete local images ===
+Untagged: ghcr.io/faith-chepkemboi/kk-payments:1.0.0-d2a74fc
+Untagged: kk-payments:1.0.0-d2a74fc
+Deleted: sha256:2ff0a68dd7014b59d9352f9e52fdbfa7605a0e0b9196bce84d171549f49ef966
+
+=== pull back ===
+1.0.0-d2a74fc: Pulling from faith-chepkemboi/kk-payments
+44136fa355b3: Already exists
+a2b99043328d: Pulling fs layer
+3ebff1d21f03: Pulling fs layer
+ed9f52790f16: Pulling fs layer
+cc9df7179ec1: Pulling fs layer
+7fea19673380: Pulling fs layer
+a2b99043328d: Already exists
+3ebff1d21f03: Already exists
+ed9f52790f16: Already exists
+cc9df7179ec1: Already exists
+7fea19673380: Already exists
+a2b99043328d: Pull complete
+3ebff1d21f03: Pull complete
+cc9df7179ec1: Pull complete
+7fea19673380: Pull complete
+ed9f52790f16: Pull complete
+8d33ef58e9cd: Download complete
+Digest: sha256:2ff0a68dd7014b59d9352f9e52fdbfa7605a0e0b9196bce84d171549f49ef966
+Status: Downloaded newer image for ghcr.io/faith-chepkemboi/kk-payments:1.0.0-d2a74fc
+ghcr.io/faith-chepkemboi/kk-payments:1.0.0-d2a74fc
+IMAGE                                                ID             DISK USAGE   CONTENT SIZE   EXTRA
+ghcr.io/faith-chepkemboi/kk-payments:1.0.0-d2a74fc   2ff0a68dd701       89.8MB         24.6MB        
+
+=== credential audit ===
+PASS: no token patterns in any file in this folder
+PASS: no token patterns in git history

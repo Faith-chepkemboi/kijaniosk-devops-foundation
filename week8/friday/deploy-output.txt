@@ -1,0 +1,24 @@
+=== apply ===
+deployment.apps/kk-payments created
+service/kk-payments-service created
+
+=== rollout ===
+Waiting for deployment "kk-payments" rollout to finish: 0 of 2 updated replicas are available...
+error: timed out waiting for the condition
+
+=== deployment ===
+NAME          READY   UP-TO-DATE   AVAILABLE   AGE
+kk-payments   0/2     2            0           3m
+
+=== pods ===
+NAME                           READY   STATUS              RESTARTS   AGE   IP       NODE       NOMINATED NODE   READINESS GATES
+kk-payments-6f76976d6d-b486v   0/1     ContainerCreating   0          3m    <none>   minikube   <none>           <none>
+kk-payments-6f76976d6d-k5kp6   0/1     ContainerCreating   0          3m    <none>   minikube   <none>           <none>
+
+=== second capture: the first rollout timed out at 180s because the image pull on the Minikube node was slow on this network; both Pods reached Running after the pull finished ===
+NAME          READY   UP-TO-DATE   AVAILABLE   AGE
+kk-payments   2/2     2            2           39m
+
+NAME                           READY   STATUS    RESTARTS   AGE   IP           NODE       NOMINATED NODE   READINESS GATES
+kk-payments-6f76976d6d-b486v   1/1     Running   0          39m   10.244.0.3   minikube   <none>           <none>
+kk-payments-6f76976d6d-k5kp6   1/1     Running   0          39m   10.244.0.4   minikube   <none>           <none>

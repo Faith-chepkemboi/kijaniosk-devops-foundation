@@ -1,0 +1,21 @@
+22:27:27 NAME                           READY   STATUS    RESTARTS   AGE
+22:27:27 kk-payments-6f76976d6d-c5jzl   1/1     Running   0          54s
+22:27:28 kk-payments-6f76976d6d-qlk8v   1/1     Running   0          86s
+22:27:30 kk-payments-6f76976d6d-c5jzl   1/1     Terminating   0          57s
+22:27:31 kk-payments-6f76976d6d-6w87l   0/1     Pending       0          0s
+22:27:31 kk-payments-6f76976d6d-c5jzl   1/1     Terminating   0          58s
+22:27:31 kk-payments-6f76976d6d-6w87l   0/1     Pending       0          0s
+22:27:31 kk-payments-6f76976d6d-6w87l   0/1     ContainerCreating   0          0s
+22:27:31 kk-payments-6f76976d6d-c5jzl   0/1     Completed           0          58s
+22:27:31 kk-payments-6f76976d6d-6w87l   0/1     ContainerCreating   0          0s
+22:27:31 kk-payments-6f76976d6d-6w87l   0/1     Running             0          0s
+22:27:31 kk-payments-6f76976d6d-c5jzl   0/1     Completed           0          58s
+22:27:31 kk-payments-6f76976d6d-c5jzl   0/1     Completed           0          58s
+22:27:31 kk-payments-6f76976d6d-c5jzl   0/1     Completed           0          58s
+22:27:41 kk-payments-6f76976d6d-6w87l   1/1     Running             0          10s
+22:27:41 kk-payments-6f76976d6d-6w87l   1/1     Running             0          10s
+
+T0 (old Pod deleted): 22:27:30
+T1 (replacement Pod 1/1 Running): 22:27:41
+Recovery time: 11 seconds
+Deleted Pod: kk-payments-6f76976d6d-c5jzl | Replacement: kk-payments-6f76976d6d-6w87l
